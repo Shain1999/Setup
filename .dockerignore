@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+
+# Tool caches
+.cache/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Logs
+*.log
+logs/
+
+# Tests (not needed in image builds)
+tests/
+conftest.py
+
+# Harness + build orchestration
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+Makefile
+docker-compose*.yml
+.devcontainer/
+
+# Misc
+*.bak
+*.ipynb

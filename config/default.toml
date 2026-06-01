@@ -1,0 +1,6 @@
+# Default, non-secret configuration. Commit this.
+# Secrets belong in .env (gitignored) — see .env.example.
+
+[app]
+name = "world"
+debug = false

@@ -1,0 +1,19 @@
+services:
+  devshell:
+    build:
+      context: .
+      dockerfile: docker/devshell.Dockerfile
+      target: development
+      args:
+        UV_IMAGE: ${UV_IMAGE_VERSION:-ghcr.io/astral-sh/uv:0.9.26}
+    container_name: devshell
+    command: sleep infinity
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+        consistency: cached
+      - devshell-venv:/app/.venv
+
+volumes:
+  devshell-venv:
