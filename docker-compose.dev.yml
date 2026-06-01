@@ -14,6 +14,16 @@ services:
         target: /app
         consistency: cached
       - devshell-venv:/app/.venv
+      # Persist caches + shell history across rebuilds
+      - devshell-uv-cache:/home/vscode/.cache/uv
+      - devshell-uv-python:/home/vscode/.local/share/uv
+      - zsh-history:/home/vscode/commandhistory
+      # Host binds: git push / gh from inside the container (read-only)
+      - ${HOME}/.ssh:/home/vscode/.ssh:ro
+      - ${HOME}/.config/gh:/home/vscode/.config/gh:ro
 
 volumes:
   devshell-venv:
+  devshell-uv-cache:
+  devshell-uv-python:
+  zsh-history:

@@ -1,13 +1,26 @@
 {
   "name": "dev",
-  "dockerComposeFile": [
-    "../docker-compose.dev.yml"
-  ],
+  "build": {
+    "dockerfile": "../docker/devshell.Dockerfile",
+    "context": "..",
+    "target": "development",
+    "args": {
+      "UV_IMAGE": "ghcr.io/astral-sh/uv:0.9.26"
+    }
+  },
   "init": true,
-  "service": "devshell",
-  "workspaceFolder": "/app",
-  "remoteUser": "vscode",
   "overrideCommand": true,
+  "remoteUser": "vscode",
+  "workspaceFolder": "/app",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached",
+  "mounts": [
+    "source=devshell-venv,target=/app/.venv,type=volume",
+    "source=devshell-uv-cache,target=/home/vscode/.cache/uv,type=volume",
+    "source=devshell-uv-python,target=/home/vscode/.local/share/uv,type=volume",
+    "source=zsh-history,target=/home/vscode/commandhistory,type=volume",
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,readonly=true",
+    "source=${localEnv:HOME}/.config/gh,target=/home/vscode/.config/gh,type=bind,readonly=true"
+  ],
   "features": {
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
       "version": "latest",
@@ -52,7 +65,7 @@
     "TESTCONTAINERS_HOST_OVERRIDE": "host.docker.internal",
     "TESTCONTAINERS_RYUK_DISABLED": "false",
     "MISE_TRUSTED_CONFIG_PATHS": "/app/.claude/worktrees",
-    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
+    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
   },
   "remoteEnv": {
     "PATH": "/home/vscode/.local/bin:/app/.venv/bin:${containerEnv:PATH}"
